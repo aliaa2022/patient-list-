@@ -1,38 +1,86 @@
-.App {
-  text-align: center;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e0f7f8;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ui.container {
+  margin-top: 5em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ui.fixed.menu {
+  background-color: #ffffff;
+  border-bottom: 1px solid #cccccc;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.ui.main {
+  margin-top: 2em;
+}
+
+.ui.form .field {
+  margin-bottom: 1em;
+}
+
+.ui.button.blue {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.ui.celled.list .item {
+  padding: 1em;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.ui.celled.list .item:hover {
+  background-color: #f9f9f9;
+}
+
+.ui.celled.list .item .avatar.image {
+  width: 50px;
+  height: 50px;
+  margin-right: 1em;
+}
+
+.ui.celled.list .item .header {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.ui.celled.list .item .trash.icon {
+  float: right;
+  cursor: pointer;
+}
+
+.ui.celled.list .item.active {
+  background-color: #d0f0f1;
+}
+
+.header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.search-bar {
+  padding: 5px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-patient-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-patient-btn:hover {
+  background-color: #0056b3;
 }
