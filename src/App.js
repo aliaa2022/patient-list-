@@ -1,58 +1,73 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
+import ContactDetail from "./ContactDetail";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
-  );
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   const addContactHandler = (contact) => {
-    setContacts([...contacts, { id: uuid(), ...contact }]);
+    const newContact = { id: uuidv4(), ...contact };
+    const newContactList = [...contacts, newContact];
+    setContacts(newContactList);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContactList)); // Save to local storage
   };
 
   const removeContactHandler = (id) => {
-    const newContactList = contacts.filter((contact) => {
-      return contact.id !== id;
-    });
-
+    const newContactList = contacts.filter((contact) => contact.id !== id);
     setContacts(newContactList);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContactList)); // Save to local storage
+  };
+
+  const selectContactHandler = (contact) => {
+    setSelectedContact(contact);
+  };
+
+  const closeContactHandler = () => {
+    setSelectedContact(null);
   };
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
-
-  useEffect(() => {
-    const results = contacts.filter(contact =>
-      (contact.name && contact.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (contact.age && contact.age.toString().includes(searchTerm)) ||
-      (contact.gender && contact.gender.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (contact.email && contact.email.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-    setSearchResults(results);
-  }, [contacts, searchTerm]);
+    const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retrieveContacts) setContacts(retrieveContacts);
+  }, []);
 
   return (
     <div className="ui container">
-      <Header />
-      <div className="header">
-        <input
-          type="text"
-          placeholder="Search"
-          className="search-bar"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={searchTerm ? searchResults : contacts} getContactId={removeContactHandler} />
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <div className="main-content">
+                <ContactList
+                  contacts={contacts}
+                  getContactId={removeContactHandler}
+                  selectContactHandler={selectContactHandler}
+                />
+                {selectedContact && (
+                  <ContactDetail
+                    contact={selectedContact}
+                    onClose={closeContactHandler}
+                  />
+                )}
+              </div>
+            }
+          />
+          <Route
+            path="/add"
+            element={<AddContact addContactHandler={addContactHandler} />}
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }
