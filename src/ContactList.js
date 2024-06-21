@@ -1,23 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import ContactCard from "./ContactCard";
+import { Link } from "react-router-dom";
 
 const ContactList = (props) => {
   const deleteContactHandler = (id) => {
     props.getContactId(id);
   };
 
-  const selectContactHandler = (contact) => {
-    props.selectContactHandler(contact);
-  };
-
   const renderContactList = props.contacts.map((contact) => {
     return (
       <ContactCard
-        contact={contact}
-        clickHander={deleteContactHandler}
-        selectContactHandler={selectContactHandler}
         key={contact.id}
+        contact={contact}
+        clickHandler={deleteContactHandler}
+        selectContactHandler={props.selectContactHandler}
       />
     );
   });
@@ -25,10 +21,12 @@ const ContactList = (props) => {
   return (
     <div className="main">
       <h2>Contact List</h2>
-      <div className="ui celled list">{renderContactList}</div>
       <Link to="/add">
-        <button className="ui button blue add-contact">Add Contact</button>
+        <button className="add-patient-btn">
+          <i className="icon plus"></i> Add Contact
+        </button>
       </Link>
+      <div className="ui celled list">{renderContactList}</div>
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AddContact = ({ addContactHandler }) => {
-  const [name, setName] = React.useState("");
-  const [age, setAge] = React.useState("");
-  const [gender, setGender] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -76,7 +76,9 @@ const AddContact = ({ addContactHandler }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button className="ui button blue">Add</button>
+        <button className="ui button blue add-patient-btn">
+          <i className="plus icon"></i> Add Patient
+        </button>
       </form>
     </div>
   );

@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 
-const Header = () => {
+function Header() {
   return (
-    <div className="ui fixed menu">
-      <div className="ui container center">
-        <h2>Patient List</h2>
-      </div>
+    <div className="header">
+      <h2>Patient List</h2>
     </div>
   );
-};
+}
 
 export default Header;

@@ -1,10 +1,12 @@
 import React from "react";
-import user from "./images/user.png";
+import user1 from "./images/user.png";
 import user2 from "./images/user2.png";
 
 const ContactCard = (props) => {
   const { id, name, age, gender, email } = props.contact;
-  const userImage = gender.toLowerCase() === "f" ? user2 : user;
+  console.log('Contact:', props.contact); // Log contact data
+  const userImage = gender && gender.toLowerCase() === "f" ? user2 : user1;
+  console.log('Selected image:', userImage); // Log selected image
 
   return (
     <div className="item" onClick={() => props.selectContactHandler(props.contact)}>
@@ -19,7 +21,7 @@ const ContactCard = (props) => {
         style={{ color: "red", marginTop: "7px", cursor: "pointer" }}
         onClick={(e) => {
           e.stopPropagation();
-          props.clickHander(id);
+          props.clickHandler(id);
         }}
       ></i>
     </div>
