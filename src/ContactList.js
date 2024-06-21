@@ -20,7 +20,7 @@ const ContactList = (props) => {
 
   return (
     <div className="main">
-      <h2>Contact List</h2>
+      {/* <h2>Contact List</h2> */}
       <Link to="/add">
         <button className="add-patient-btn">
           <i className="icon plus"></i> Add Contact

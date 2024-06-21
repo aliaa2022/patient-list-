@@ -29,6 +29,9 @@ function App() {
     const newContactList = contacts.filter((contact) => contact.id !== id);
     setContacts(newContactList);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContactList));
+    if (selectedContact && selectedContact.id === id) {
+      setSelectedContact(null); // Clear selected contact if it is being deleted
+    }
   };
 
   const selectContactHandler = (contact) => {
