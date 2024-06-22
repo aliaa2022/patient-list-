@@ -1,11 +1,11 @@
 import React from "react";
-import user1 from "./images/user.png";
-import user2 from "./images/user2.png";
+import user from "../assets/images/user.png"; // Corrected path
+import user2 from "../assets/images/user2.png"; // Corrected path
 
 const ContactCard = (props) => {
   const { id, name, age, gender, email } = props.contact;
   console.log('Contact:', props.contact); // Log contact data
-  const userImage = gender && gender.toLowerCase() === "f" ? user2 : user1;
+  const userImage = gender && gender.toLowerCase() === "f" ? user2 : user;
   console.log('Selected image:', userImage); // Log selected image
 
   return (

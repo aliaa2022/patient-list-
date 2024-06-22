@@ -1,6 +1,6 @@
 import React from "react";
-import user from "./images/user.png";
-import user2 from "./images/user2.png";
+import user from "../assets/images/user.png"; // Corrected path
+import user2 from "../assets/images/user2.png"; // Corrected path
 
 const ContactDetail = ({ contact, onClose }) => {
   const { name, age, gender, email } = contact;

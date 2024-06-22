@@ -1,5 +1,5 @@
 import React from 'react';
-import './Heart.css';
+import "../styles/Heart.css"; // Corrected path
 
 const Heart = () => {
   return (
