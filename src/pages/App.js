@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-import Header from "./Header";
-import AddContact from "./AddContact";
-import ContactList from "./ContactList";
-import ContactDetail from "./ContactDetail";
-import MedicalProfile from "./MedicalProfile";
+import Header from "../components/Header";
+import AddContact from "../components/AddContact";
+import ContactList from "../components/ContactList";
+import ContactDetail from "../components/ContactDetail";
+import MedicalProfile from "../components/MedicalProfile";
+import Heart from '../components/Heart';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [vitalSigns, setVitalSigns] = useState({
     heartRate: 75,
@@ -42,6 +45,18 @@ function App() {
     setSelectedContact(null);
   };
 
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newContactList = contacts.filter((contact) => {
+        return contact.name.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
+  };
+
   useEffect(() => {
     const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (retrieveContacts) setContacts(retrieveContacts);
@@ -58,9 +73,11 @@ function App() {
             element={
               <div className="main-content">
                 <ContactList
-                  contacts={contacts}
+                  contacts={searchTerm.length < 1 ? contacts : searchResults}
                   getContactId={removeContactHandler}
                   selectContactHandler={selectContactHandler}
+                  term={searchTerm}
+                  searchKeyword={searchHandler}
                 />
                 {selectedContact && (
                   <div className="detail-section">
